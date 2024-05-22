@@ -1,4 +1,4 @@
-# sency-motion-android-demo
+# Sency Motion SDK
 
 ### [Adding dependencies](#adding-dependencies)
 ### [Initialization](#initialization)
@@ -14,13 +14,34 @@ Here is the current available version of the SencyMotion project:
 
 | Project        | Version |
 |----------------|:-------:|
-| sencymotionlib | 0.0.23  |
+| sencymotionlib | 0.0.22  |
 
 
-To use SencyMotion in your project, add these dependencies to your application in your `build.gradle` file.
+To use SencyMotion in your project, add this maven repository to the root `build.gradle` or `settings.gradle` file.
+```groovy
+maven {
+    url "https://jfrog.dev.wodproofapp.com/artifactory/sencymotion/"
+    credentials {
+        username = "{your_user_name}"
+        password = "{your_user_password}"
+    }
+}
+```
+And add these dependencies to the module `build.gradle` file.
 ```groovy
 dependencies {
     implementation 'com.sency.sencymotion:sencymotionlib:$latest_version'
+}
+```
+Add `pickFirst` rule to `packagingOptions` in the module `build.gradle` file. This rule will pick the first shared object (dynamic) library. It
+will give higher priority to shared object libraries that are coming with direct app dependencies.
+```groovy
+android {
+    // ...
+    packagingOptions {
+        pickFirst '**/*.so'
+    }
+    // ...
 }
 ```
 
